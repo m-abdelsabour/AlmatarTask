@@ -1,4 +1,4 @@
-package com.example.almatartask
+package com.example.almatartask.shopping.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
