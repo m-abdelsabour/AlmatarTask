@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class ShoppingRepositoryImpl @Inject constructor(
+class ShoppingRepositoryImpl(
     private val dao: ShoppingDao,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ShoppingRepository {

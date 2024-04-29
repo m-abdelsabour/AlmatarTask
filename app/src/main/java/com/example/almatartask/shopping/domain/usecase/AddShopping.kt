@@ -5,7 +5,7 @@ import com.example.almatartask.shopping.domain.model.Shopping
 import com.example.almatartask.shopping.domain.repository.ShoppingRepository
 import javax.inject.Inject
 
-class AddShopping @Inject constructor(
+class AddShopping (
     private val repository: ShoppingRepository
 ) {
 

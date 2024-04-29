@@ -15,17 +15,3 @@ annotation class MainDispatcher
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class IoDispatcher
-
-@Module
-@InstallIn(SingletonComponent::class)
-object DispatcherModule {
-
-    @MainDispatcher
-    @Provides
-    fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
-
-    @IoDispatcher
-    @Provides
-    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-
-}
