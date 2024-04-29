@@ -8,12 +8,14 @@ fun LocalShopping.toShopping() = Shopping(
     id = id,
     quantity = quantity,
     itemName = itemName,
-    description = description
+    description = description,
+    bought = bought
 )
 
 fun Shopping.toLocalShopping() = LocalShopping(
     id = id,
     quantity = quantity,
     itemName = itemName,
-    description = description
+    description = description,
+    bought = bought
 )

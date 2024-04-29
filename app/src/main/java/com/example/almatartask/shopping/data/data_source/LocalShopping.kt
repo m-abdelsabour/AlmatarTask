@@ -10,6 +10,7 @@ data class LocalShopping(
     val quantity: Int? = null,
     val itemName: String? = null,
     val description: String? = null,
+    val bought: Boolean = false
 )
 
 

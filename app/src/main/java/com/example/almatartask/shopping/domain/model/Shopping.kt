@@ -9,6 +9,7 @@ data class Shopping(
     val quantity: Int? = null,
     val itemName: String? = null,
     val description: String? = null,
+    var bought: Boolean = false
 )
 class InvalidShoppingException(message:String):Exception(message)
 

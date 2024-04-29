@@ -48,7 +48,7 @@ fun ShoppingScreen(
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            Text(text = "Your Shopping", style = MaterialTheme.typography.headlineLarge)
+            Text(text = "Your Shopping List", style = MaterialTheme.typography.headlineLarge)
             if (state.shopping.isNotEmpty()) {
                 OrderSection(
                     modifier = Modifier
@@ -71,6 +71,9 @@ fun ShoppingScreen(
                             onItemClick = {shopping.id?.let { onItemClick(it) }},
                             onDeleteClick = {
                                 event(ShoppingEvent.DeleteShopping(shopping))
+                            },
+                            onSwitchClick = {
+                                event(ShoppingEvent.UpdateShopping(shopping))
                             }
                         )
                     Spacer(modifier = Modifier.height(16.dp))

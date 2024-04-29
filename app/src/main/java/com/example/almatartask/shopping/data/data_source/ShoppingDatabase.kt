@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [LocalShopping::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 

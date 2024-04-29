@@ -29,7 +29,7 @@ class ShoppingViewModel @Inject constructor(
     val state: State<ShoppingState> = derivedStateOf { _state }
 
     init {
-        getShoppingList(ShoppingOrder.ItemName(OrderType.Descending))
+        getShoppingList(ShoppingOrder.NotBought(OrderType.Descending))
     }
 
     fun onEvent(event: ShoppingEvent) {
@@ -43,7 +43,13 @@ class ShoppingViewModel @Inject constructor(
             is ShoppingEvent.DeleteShopping -> {
                 viewModelScope.launch(dispatcher) {
                     shoppingUseCases.deleteShopping(event.shopping)
-                    //getShoppingList(event.shoppingOrder)
+                }
+            }
+            is ShoppingEvent.UpdateShopping -> {
+                viewModelScope.launch(dispatcher) {
+                    event.shopping.bought = !event.shopping.bought
+                    shoppingUseCases.addShopping(event.shopping)
+                    getShoppingList(ShoppingOrder.NotBought(OrderType.Descending))
                 }
             }
         }
@@ -52,12 +58,10 @@ class ShoppingViewModel @Inject constructor(
     private fun getShoppingList(shoppingOrder: ShoppingOrder) {
         viewModelScope.launch(dispatcher) {
             shoppingUseCases.getShoppingList.invoke(shoppingOrder).collect { shopping ->
-                if (shopping.isNotEmpty()) {
                     _state = _state.copy(
                         shopping = shopping,
                         shoppingOrder = shoppingOrder
                     )
-                }
             }
         }
     }

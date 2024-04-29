@@ -10,6 +10,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,20 +25,21 @@ fun ShoppingItem(
     shopping: Shopping,
     modifier: Modifier = Modifier,
     onDeleteClick: () -> Unit,
-    onItemClick: (id:Int) -> Unit
+    onSwitchClick: () -> Unit,
+    onItemClick: (Int) -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 16.dp, bottom = 16.dp)
+            .padding(top = 10.dp, bottom = 10.dp)
             .clickable { shopping.id?.let { onItemClick(it) } },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(12.dp)
         ) {
             Text(
                 text = shopping.itemName.toString(),
@@ -62,6 +64,20 @@ fun ShoppingItem(
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(8.dp))
+            if (!shopping.bought) {
+                Row(
+                    modifier = Modifier.fillMaxWidth() ,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("Bought Shopping Item")
+                    Switch(
+                        checked = false,
+                        onCheckedChange = { onSwitchClick() }
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+            }
             IconButton(onClick = onDeleteClick) {
                 Icon(
                     imageVector = Icons.Default.Delete,
