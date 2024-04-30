@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddEditShoppingViewModel @Inject constructor(
     private val shoppingUseCases: ShoppingUseCases,
-    savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle?,
     @MainDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
@@ -28,7 +28,7 @@ class AddEditShoppingViewModel @Inject constructor(
             hint = "Enter title..."
         )
     )
-     val shoppingTitle: State<ShoppingTextFieldState> = _shoppingTitle
+     var shoppingTitle: State<ShoppingTextFieldState> = _shoppingTitle
 
     private val _shoppingContent = mutableStateOf(
         ShoppingTextFieldState(
@@ -51,7 +51,7 @@ class AddEditShoppingViewModel @Inject constructor(
     private var currentShoppingId: Int? = null
 
     init {
-        savedStateHandle.get<Int>("shoppingId")?.let { shoppingId ->
+        savedStateHandle?.get<Int>("shoppingId")?.let { shoppingId ->
             if (shoppingId != -1) {
                 viewModelScope.launch(dispatcher) {
                     shoppingUseCases.getShoppingItem(shoppingId).also {

@@ -20,7 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.example.almatartask.shopping.presentation.SemanticsDescription
 import com.example.almatartask.shopping.presentation.shopping.component.OrderSection
 import com.example.almatartask.shopping.presentation.shopping.component.ShoppingItem
 
@@ -33,10 +36,12 @@ fun ShoppingScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {
-                    onItemClick(-1)
-                },
-                contentColor = MaterialTheme.colorScheme.primary
+                onClick = { onItemClick(-1) },
+                contentColor = MaterialTheme.colorScheme.primary,
+                // add semantics for ui test to ensure floating is active
+                modifier = Modifier.semantics {
+                    this.contentDescription=SemanticsDescription.SHOPPING_FLOATING_BUTTON
+                }
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Shopping")
             }

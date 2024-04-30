@@ -19,7 +19,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShoppingViewModel @Inject constructor(
-    private val stateHandel: SavedStateHandle,
     private val shoppingUseCases: ShoppingUseCases,
     @MainDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -55,7 +54,7 @@ class ShoppingViewModel @Inject constructor(
         }
     }
 
-    private fun getShoppingList(shoppingOrder: ShoppingOrder) {
+    fun getShoppingList(shoppingOrder: ShoppingOrder) {
         viewModelScope.launch(dispatcher) {
             shoppingUseCases.getShoppingList.invoke(shoppingOrder).collect { shopping ->
                     _state = _state.copy(
